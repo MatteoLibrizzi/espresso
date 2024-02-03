@@ -24,7 +24,7 @@ class GPTInterface {
     // private model = "gpt-3.5-turbo-instruct";
     private model = "gpt-3.5-turbo";
 
-    // private model = "gpt-4-0125-preview";
+    //private model = "gpt-4-0125-preview";
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
@@ -34,7 +34,7 @@ class GPTInterface {
     async getResponse(
         messages: any,
         temperature = 0.5,
-        maxTokens = 100
+        maxTokens = 1000
     ): Promise<Interaction> {
         try {
             const response = await axios.post<GPTResponse>(
