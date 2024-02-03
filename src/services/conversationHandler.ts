@@ -1,5 +1,10 @@
 import GPTInterface, { type Interaction } from "./gptInterface";
 
+function filterConv(conversation: Interaction[]): Interaction[] {
+    const filtered = conversation.filter((msg) => msg.role != "videoPath");
+    return filtered;
+}
+
 class ConversationHandler {
     private gptInterface: GPTInterface;
     private conversation: Interaction[] = [];
@@ -18,7 +23,7 @@ class ConversationHandler {
         this.conversation.push({ role: "user", content: prompt });
         try {
             const response = await this.gptInterface.getResponse(
-                this.conversation
+                filterConv(this.conversation)
             );
             this.conversation.push(response);
             console.log(`Generated code:\n ${response.content}`);

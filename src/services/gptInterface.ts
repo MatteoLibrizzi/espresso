@@ -4,6 +4,7 @@ export interface Interaction {
     role: string;
     content: string;
 }
+
 interface GPTResponse {
     id: string;
     object: string;
