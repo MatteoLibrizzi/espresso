@@ -4,6 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import { rename } from "fs";
 
 export async function video_render(code: string){
+    console.log("generating video")
     let uuid = uuidv4();
     let generate_command = `echo "${code}" > animation.py && manim -qm animation.py Anima -o ${uuid}`;
     let result = {};
