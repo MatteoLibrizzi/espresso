@@ -26,6 +26,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Espresso</title>
+</svelte:head>
+
 <div class="bg-white">
   <div class="mx-auto max-w-2xl py-16 px-6 sm:py-80 lg:px-8">
     <form
