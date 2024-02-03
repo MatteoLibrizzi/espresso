@@ -60,8 +60,7 @@ declare module '$env/static/private' {
 	export const npm_package_license: string;
 	export const COMMAND_MODE: string;
 	export const PNPM_SCRIPT_SRC_DIR: string;
-	export const npm_package_exports___import: string;
-	export const npm_package_repository_directory: string;
+	export const npm_package_scripts_cane: string;
 	export const SSH_AUTH_SOCK: string;
 	export const npm_package_bin_svelte_kit: string;
 	export const __CF_USER_TEXT_ENCODING: string;
@@ -206,8 +205,7 @@ declare module '$env/dynamic/private' {
 		npm_package_license: string;
 		COMMAND_MODE: string;
 		PNPM_SCRIPT_SRC_DIR: string;
-		npm_package_exports___import: string;
-		npm_package_repository_directory: string;
+		npm_package_scripts_cane: string;
 		SSH_AUTH_SOCK: string;
 		npm_package_bin_svelte_kit: string;
 		__CF_USER_TEXT_ENCODING: string;
