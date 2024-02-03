@@ -15,6 +15,7 @@ class UserFlowHandler {
 
     async nextVideo(prompt: string) {
         let code = await this.conversation.nextQuery(prompt);
+        console.log(`${code}`);
         let videoPath: string | undefined = undefined;
         let retries = 0;
         while (videoPath == null) {

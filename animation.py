@@ -1,17 +1,16 @@
+
 from manim import *
 
-class SquareToTriangle(Scene):
+class Anima(Scene):
     def construct(self):
-        square = Square(color=YELLOW, fill_opacity=1)
-        self.play(Create(square))
-        self.wait(3)
-
-        triangle = Polygon(
-            ORIGIN, 
-            RIGHT, 
-            UP,
-            color=YELLOW,
-            fill_opacity=1
+        axes = Axes(
+            x_range=[-3, 3],
+            y_range=[-1, 9],
+            axis_config={"color": BLUE},
         )
-        self.play(Transform(square, triangle))
+
+        square_function = axes.plot(lambda x: x**2, color=YELLOW)
+        square_label = axes.get_graph_label(square_function, label='x^{2}', color=YELLOW)
+
+        self.play(Create(axes), Create(square_function), Write(square_label))
         self.wait()

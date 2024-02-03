@@ -5,8 +5,8 @@ class ConversationHandler {
     private conversation: Interaction[] = [];
     private systemPrompt = `Your are a manim expert, use only methods that you can find in manim documentation. 
     You receive a prompt and write code step by step that do all the animations requested.
-    You always create a python class with the name Anima, and use manim in the right way.
-    You answer with only code and nothing else, do not put backtics. `;
+    You always create a python class with the name Anima.
+    You answer with only code and nothing else. Use single quotes for string.`;
 
     constructor(apiKey: string) {
         this.gptInterface = new GPTInterface(apiKey);
@@ -20,6 +20,7 @@ class ConversationHandler {
             const response = await this.gptInterface.getResponse(
                 this.conversation
             );
+            response.content = response.content.replace(/`/g,"").replace(/\bpython\b/gi, "");
             this.conversation.push(response);
             console.log(`Generated code:\n ${response.content}`);
             return response.content;
