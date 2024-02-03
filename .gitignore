@@ -2,3 +2,6 @@ node_modules/
 .env
 .svelte-kit/
 src/amimas/*
+media/
+__pycache__/
+animation.py

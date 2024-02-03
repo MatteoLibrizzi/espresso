@@ -1,4 +1,5 @@
 import ConversationHandler from "./conversationHandler";
+import { video_render } from "./utilities";
 
 function getFixPrompt(prompt: string, error: string) {
     return `The returned code for "${prompt} returned compile error ${error}, fix it`;
@@ -18,7 +19,7 @@ class UserFlowHandler {
         let retries = 0;
         while (videoPath == null) {
             try {
-                videoPath = VideoEncoder(code);
+                videoPath = await video_render(code);
             } catch (e: any) {
                 retries += 1;
                 if (retries > 3) {
