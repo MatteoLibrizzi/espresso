@@ -1,11 +1,8 @@
-import adapter from "@sveltejs/adapter-auto";
-import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
+/** @type {import('tailwindcss').Config} */
+export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
-  kit: {
-    adapter: adapter(),
+  theme: {
+    extend: {},
   },
-  preprocess: vitePreprocess(),
+  plugins: [],
 };
-export default config;
