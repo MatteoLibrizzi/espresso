@@ -5,6 +5,17 @@ function getFixPrompt(prompt: string, error: string) {
     return `The returned code for "${prompt} returned compile error ${error}, fix it`;
 }
 
+function isCodeDiff(code: string, conversation: any) {
+    if (conversation.length < 2) {
+        return false;
+    }
+    if (code !== conversation[conversation.length - 2].content) {
+        console.log("Code is different");
+        return true;
+    }
+    return false;
+}
+
 class UserFlowHandler {
     private conversation;
     constructor() {
@@ -13,8 +24,13 @@ class UserFlowHandler {
         );
     }
 
-    async nextVideo(prompt: string) {
-        let code = await this.conversation.nextQuery(prompt);
+    async nextVideo(prompt: string, codeBlock: string) {
+        if (
+            !isCodeDiff(codeBlock, this.conversation.getConversationHistory())
+        ) {
+            codeBlock = "";
+        }
+        let code = await this.conversation.nextQuery(prompt, codeBlock);
         console.log(`${code}`);
         let videoPath: string | undefined = undefined;
         let retries = 0;
