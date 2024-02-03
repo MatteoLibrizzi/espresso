@@ -1,3 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/Users/calebgucciardi/espresso/media/videos/animation/720p30/partial_movie_files/Anima/2016333726_1859087115_223132457.mp4'
-file 'file:/Users/calebgucciardi/espresso/media/videos/animation/720p30/partial_movie_files/Anima/543634251_1704852926_3252530696.mp4'
