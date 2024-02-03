@@ -32,7 +32,15 @@ class UserFlowHandler {
                 );
             }
         }
-        return videoPath;
+        this.getCompleteConversation().push({
+            role: "videoPath",
+            content: videoPath,
+        });
+        return { videoPath, conversation: this.getCompleteConversation() };
+    }
+
+    getCompleteConversation() {
+        return this.conversation.getConversationHistory();
     }
 }
 
