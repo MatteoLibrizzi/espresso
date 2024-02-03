@@ -937,6 +937,7 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+    dev: false
 
   /axobject-query@4.0.0:
     resolution: {integrity: sha512-+60uv1hiVFhHZeO+Lz0RYzsVHy5Wr1ayX0mwda9KPDVLNJgZ1T9Ny7VmFbLDzxsH0D87I86vgj3gFrjTJUYznw==}
@@ -1427,7 +1428,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-
   /foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
     engines: {node: '>=14'}
