@@ -1,12 +1,16 @@
 import axios from "axios";
 
+export interface Interaction {
+    role: string;
+    content: string;
+}
 interface GPTResponse {
     id: string;
     object: string;
     created: number;
     model: string;
     choices: Array<{
-        text: string;
+        message: Interaction;
         index: number;
         logprobs: any;
         finish_reason: string;
@@ -16,31 +20,29 @@ interface GPTResponse {
 class GPTInterface {
     private apiKey: string;
     private endpoint: string;
-    private model = "gpt-3.5-turbo-instruct";
-    //   private model="gpt-4-0125-preview";
+    // private model = "gpt-3.5-turbo-instruct";
+    private model = "gpt-3.5-turbo";
+
+    // private model = "gpt-4-0125-preview";
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
-        this.endpoint =
-            "https://api.openai.com/v1/engines/davinci-codex/completions";
+        this.endpoint = "https://api.openai.com/v1/chat/completions";
     }
 
     async getResponse(
-        prompt: string,
+        messages: any,
         temperature = 0.5,
         maxTokens = 100
-    ): Promise<string> {
+    ): Promise<Interaction> {
         try {
             const response = await axios.post<GPTResponse>(
                 this.endpoint,
                 {
-                    prompt,
+                    messages,
                     temperature,
                     model: this.model,
                     max_tokens: maxTokens,
-                    top_p: 1.0,
-                    frequency_penalty: 0.0,
-                    presence_penalty: 0.0,
                 },
                 {
                     headers: {
@@ -49,12 +51,10 @@ class GPTInterface {
                     },
                 }
             );
+            console.log(response.data.choices);
 
-            if (
-                response.data.choices.length > 0 &&
-                response.data.choices[0].text
-            ) {
-                return response.data.choices[0].text;
+            if (response.data.choices.length > 0) {
+                return response.data.choices[0].message;
             } else {
                 throw new Error("No response from GPT API");
             }
