@@ -2,7 +2,7 @@ node_modules/
 .env
 .vscode/
 .svelte-kit/
-src/amimas/*
+src/animas/*
 media/
 __pycache__/
 animation.py
