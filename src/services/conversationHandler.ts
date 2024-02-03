@@ -14,7 +14,9 @@ class ConversationHandler {
     }
 
     async nextQuery(prompt: string, codeBlock?: string): Promise<string> {
-        // const fullPrompt = codeBlock ? `${codeBlock}\n${prompt}` : prompt;
+        if (codeBlock) {
+            prompt = `${codeBlock}\n${prompt}`;
+        }
         this.conversation.push({ role: "user", content: prompt });
         try {
             const response = await this.gptInterface.getResponse(
