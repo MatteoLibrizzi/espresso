@@ -57,6 +57,7 @@ declare module '$env/static/private' {
 	export const COMMAND_MODE: string;
 	export const CONDA_EXE: string;
 	export const PNPM_SCRIPT_SRC_DIR: string;
+	export const npm_package_scripts_cane: string;
 	export const SSH_AUTH_SOCK: string;
 	export const __CF_USER_TEXT_ENCODING: string;
 	export const npm_package_devDependencies_eslint: string;
@@ -176,6 +177,7 @@ declare module '$env/dynamic/private' {
 		COMMAND_MODE: string;
 		CONDA_EXE: string;
 		PNPM_SCRIPT_SRC_DIR: string;
+		npm_package_scripts_cane: string;
 		SSH_AUTH_SOCK: string;
 		__CF_USER_TEXT_ENCODING: string;
 		npm_package_devDependencies_eslint: string;
