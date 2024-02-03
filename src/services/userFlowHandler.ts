@@ -25,6 +25,7 @@ class UserFlowHandler {
                 if (retries > 3) {
                     throw e;
                 }
+                console.log("Sto generando il video di nuovo");
                 code = await this.conversation.nextQuery(
                     getFixPrompt(prompt, (e as Error).message)
                 );
