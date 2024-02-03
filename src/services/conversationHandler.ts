@@ -21,6 +21,7 @@ class ConversationHandler {
                 this.conversation
             );
             this.conversation.push(response);
+            console.log(`Generated code:\n ${response.content}`);
             return response.content;
         } catch (error) {
             console.error("Error making call to GPT:", error);
