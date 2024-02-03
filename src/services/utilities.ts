@@ -1,14 +1,16 @@
 
 import {exec} from "child_process";
 import {v4 as uuidv4} from 'uuid';
-import { rename } from "fs";
+import { writeFile } from "fs/promises";
+import { rejects } from "assert";
 
 export async function video_render(code: string){
     console.log("generating video")
     let uuid = uuidv4();
-    let generate_command = `echo "${code}" > animation.py && manim -qm animation.py Anima -o ${uuid}`;
+    let generate_command = `manim -qm animation.py Anima -o ${uuid}`;
     let result = {};
 
+    await writeFile('animation.py', code);
     await execCommand(generate_command);
     await execCommand(`mv media/videos/animation/720p30/${uuid}.mp4 src/animas/${uuid}.mp4`);
 

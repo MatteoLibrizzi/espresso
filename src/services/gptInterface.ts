@@ -4,6 +4,7 @@ export interface Interaction {
     role: string;
     content: string;
 }
+
 interface GPTResponse {
     id: string;
     object: string;
@@ -21,9 +22,9 @@ class GPTInterface {
     private apiKey: string;
     private endpoint: string;
     // private model = "gpt-3.5-turbo-instruct";
-    private model = "gpt-3.5-turbo";
+    //private model = "gpt-3.5-turbo";
 
-    //private model = "gpt-4-0125-preview";
+    private model = "gpt-4-0125-preview";
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;

@@ -31,6 +31,7 @@ class UserFlowHandler {
             codeBlock = "";
         }
         let code = await this.conversation.nextQuery(prompt, codeBlock);
+        console.log(`${code}`);
         let videoPath: string | undefined = undefined;
         let retries = 0;
         while (videoPath == null) {
@@ -47,7 +48,15 @@ class UserFlowHandler {
                 );
             }
         }
-        return videoPath;
+        this.getCompleteConversation().push({
+            role: "videoPath",
+            content: videoPath,
+        });
+        return { videoPath, conversation: this.getCompleteConversation() };
+    }
+
+    getCompleteConversation() {
+        return this.conversation.getConversationHistory();
     }
 }
 
