@@ -56,13 +56,10 @@
   <title>Espresso</title>
 </svelte:head>
 
-<div
-  class="bg-gray-50 flex flex-col items-center justify-between min-h-screen"
-  bind:this={div}
->
+<div class="bg-gray-50 flex flex-col items-center min-h-screen" bind:this={div}>
   <div
     id="chat-container"
-    class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl"
+    class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12"
   >
     <ul role="list" class="-mb-8">
       {#each conversation as interaction, index}
@@ -85,14 +82,15 @@
   </div>
 
   <div
-    class="flex flex-row gap-4 p-2 max-w-3xl w-full items-center justify-center space-x-2 border rounded-md mb-6"
+    class="flex flex-row gap-4 p-2 max-w-3xl w-full items-center justify-center space-x-2 border rounded-md mb-6 sticky bottom-0 bg-gray-50 border-t"
   >
     <input
+      on:keydown={submitPrompt}
       class="flex-grow p-2 rounded-md bg-gray-50 ring-0 border-0 focus:outline-none"
       bind:value={newPrompt}
       placeholder="Make an animation that shows how an integral is computed for a cubic function..."
     />
-    <PrimaryButton on:click={submitPrompt} on:keydown={submitPrompt}
+    <PrimaryButton on:click={submitPrompt}
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
