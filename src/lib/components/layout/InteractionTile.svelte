@@ -5,7 +5,7 @@
   export let code = "";
 </script>
 
-{#if role === "user"}
+{#if role === "assistant"}
   <li>
     <div class="relative pb-14">
       <div class="relative flex items-start space-x-3">
