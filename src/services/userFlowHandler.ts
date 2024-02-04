@@ -23,6 +23,9 @@ function isCodeDiff(code: string, conversation: any) {
 function cleanConversation(conversation: Interaction[]): Interaction[] {
     let cleanedConversation: Interaction[] = [];
     for (let i = 0; i < conversation.length; i++) {
+        if (conversation[i].role === "system") {
+            continue;
+        }
         if (
             conversation[i].role === "assistant" &&
             i < conversation.length - 1 &&
