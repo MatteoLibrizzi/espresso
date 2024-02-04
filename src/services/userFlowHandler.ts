@@ -68,14 +68,6 @@ class UserFlowHandler {
     async nextVideo(prompt: string, codeBlock: string) {
         const fileName = `store/${createHash("sha256").update(prompt).digest("hex")}`;
         console.log(`The filename is: ${fileName}`);
-        this.getCompleteConversation().push({
-            role: "videoPath",
-            content: "a",
-        });
-        console.log(
-            `The prompt is: ${JSON.stringify(this.getCompleteConversation())}`
-        );
-        return;
         try {
             const content = await readFile(fileName);
             console.log("Returned cached data");
