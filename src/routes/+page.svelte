@@ -13,7 +13,6 @@
   $: conversation = [] as Interaction[];
   $: proMode = false;
   $: isThinking = false;
-  $: isThinkingString = "...";
 
   proModeStorage.subscribe((value: boolean) => {
     proMode = value;
@@ -158,7 +157,7 @@
           sender="Espresso"
           avatar="https://emojiguide.com/wp-content/uploads/platform/apple/42953.png"
         >
-          <p class="animate-bounce">{isThinkingString}</p>
+          <p class="animate-bounce">...</p>
         </InteractionTile>
       {/if}
     </ul>
