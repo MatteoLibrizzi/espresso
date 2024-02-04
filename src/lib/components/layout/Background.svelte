@@ -1,6 +1,6 @@
 <div class="relative mx-auto h-full max-w-prose text-lg" aria-hidden="true">
   <svg
-    class="absolute top-12 left-full translate-x-32 transform"
+    class="absolute top-80 left-full translate-x-32 transform"
     width={404}
     height={384}
     fill="none"
@@ -32,7 +32,7 @@
     />
   </svg>
   <svg
-    class="absolute top-1/2 right-full -translate-y-1/2 -translate-x-32 transform"
+    class="absolute top-80 right-full -translate-y-1/2 -translate-x-32 transform"
     width={404}
     height={384}
     fill="none"

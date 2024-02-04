@@ -135,10 +135,13 @@
       ? "bg-gray-50 flex flex-col items-center h-screen w-full max-w-3xl pl-10"
       : "bg-gray-50 flex flex-col items-center h-screen "}
   >
+  <div class="flex flex-row justify-between items-center w-full pl-10 pr-10">
+    <img src="https://emojiguide.com/wp-content/uploads/platform/apple/42953.png" alt="Espresso Logo" class="h-10 w-10" />
     <div class="flex flex-row gap-3 p-5 text-align w-full justify-end">
       <p class="text-sm">Pro Mode</p>
       <Toggle enabled={proMode} onChangeProps={onChangeProp} />
     </div>
+  </div>
 
     <ul
       class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
