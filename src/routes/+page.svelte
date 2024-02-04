@@ -15,7 +15,6 @@
   let newPrompt = "";
   let newCode = "";
   let ul: HTMLUListElement;
-  let autoscroll = false;
 
   $: conversation = [] as Interaction[];
   $: proMode = false;
@@ -25,18 +24,8 @@
     proMode = value;
   });
 
-  beforeUpdate(() => {
-    if (ul) {
-      const isScrolledToBottom =
-        ul.scrollHeight - ul.clientHeight <= ul.scrollTop + 1;
-      autoscroll = isScrolledToBottom;
-    }
-  });
-
   afterUpdate(() => {
-    if (autoscroll) {
-      ul.scrollTop = ul.scrollHeight;
-    }
+    ul.scrollTop = ul.scrollHeight;
   });
 
   onMount(async () => {
@@ -153,7 +142,7 @@
     </div>
 
     <ul
-      class="flex flex-col pb-24 -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
+      class="flex flex-col pb-32 -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
       bind:this={ul}
     >
       {#each conversation as interaction, index}
