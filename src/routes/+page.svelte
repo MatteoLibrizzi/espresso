@@ -65,6 +65,9 @@
 
     if (newPrompt === "") return;
 
+    const newPromptCopy = (' ' + newPrompt).slice(1);
+    newPrompt = "";
+
     isThinking = true;
 
     const response = await fetch("/testVideoFlow", {
@@ -72,7 +75,7 @@
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: newPrompt, code: newCode }),
+      body: JSON.stringify({ prompt: newPromptCopy, code: newCode }),
     });
 
     if (!response.ok) {
