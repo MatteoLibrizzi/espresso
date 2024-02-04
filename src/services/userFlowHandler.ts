@@ -22,6 +22,27 @@ function isCodeDiff(code: string, conversation: any) {
     return false;
 }
 
+function cleanConversation(conversation: Interaction[]): Interaction[] {
+    let cleanedConversation: Interaction[] = [];
+    for (let i = 0; i < conversation.length; i++) {
+        if (
+            conversation[i].role === "assistant" &&
+            i < conversation.length - 1 &&
+            conversation[i + 1].role === "videoPath"
+        ) {
+            cleanedConversation.push({
+                role: "assitant",
+                content: `${conversation[i].content}`,
+                videoPath: conversation[i + 1].content,
+            });
+            i++; // Skip next interaction
+        } else {
+            cleanedConversation.push(conversation[i]);
+        }
+    }
+    return cleanedConversation;
+}
+
 class UserFlowHandler {
     private conversation;
     constructor() {
@@ -67,7 +88,8 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        const compleConversation = this.getCompleteConversation();
+        
+        const compleConversation = cleanConversation(this.getCompleteConversation());
         this.remember(fileName, compleConversation);
         return { conversation: compleConversation};
     }
@@ -96,7 +118,9 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        return { conversation: this.getCompleteConversation() };
+        return {
+            conversation: cleanConversation(this.getCompleteConversation()),
+        };
     }
 
     getCompleteConversation() {
