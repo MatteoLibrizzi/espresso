@@ -65,7 +65,9 @@
 
     if (newPrompt === "") return;
 
-    const newPromptCopy = (' ' + newPrompt).slice(1);
+    conversation = [...conversation, { role: "user", content: newPrompt }];
+
+    const newPromptCopy = (" " + newPrompt).slice(1);
     newPrompt = "";
 
     isThinking = true;
