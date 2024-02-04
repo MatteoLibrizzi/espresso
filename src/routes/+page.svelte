@@ -1,23 +1,27 @@
 <script lang="ts">
   import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
-  import { afterUpdate, beforeUpdate, onMount } from "svelte";
+  import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
+  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
+  import type { Interaction } from "../services/gptInterface";
 
-  $: conversationHandler = [
-    { content: "Hello!", role: "user" },
-    { content: "Hi there!", role: "video_path" },
-    { content: "How can I help you?", role: "user" },
-  ];
+  $: conversation = [] as Interaction[];
 
   let newPrompt = "";
   let div: HTMLDivElement;
 
-  const submitPrompt = () => {
-    conversationHandler = [
-      ...conversationHandler,
-      { content: "Hello!", role: "user" },
-      { content: "Hi there!", role: "video_path" },
-      { content: "How can I help you?", role: "user" },
-    ];
+  const submitPrompt = async () => {
+    console.log("submitting prompt", newPrompt);
+    const response = await fetch("/testVideoFlow", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: newPrompt }),
+    });
+
+    const data = await response.json();
+
+    conversation = [...data.conversation];
     newPrompt = "";
   };
 </script>
@@ -34,10 +38,17 @@
     id="chat-container"
     class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl"
   >
-    {#each conversationHandler as interaction, index}
-      <div>{interaction.content}</div>
-      <br />
-    {/each}
+    <ul role="list" class="-mb-8">
+      {#each conversation as interaction, index}
+        <InteractionTile
+          role={interaction.role}
+          sender="You"
+          avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
+        >
+          {interaction.content}
+        </InteractionTile>
+      {/each}
+    </ul>
   </div>
 
   <div class="flex flex-row gap-4 p-5 mt-auto max-w-3xl w-full">
