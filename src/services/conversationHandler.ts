@@ -7,7 +7,7 @@ function filterConv(conversation: Interaction[]): Interaction[] {
 
 class ConversationHandler {
     private gptInterface: GPTInterface;
-    private conversation: Interaction[] = [];
+    public conversation: Interaction[] = [];
     private systemPrompt = `Your are a manim expert, use only methods that you can find in manim documentation. 
     You receive a prompt and write code step by step that do all the animations requested.
     You always create a python class with the name Anima.
@@ -28,7 +28,9 @@ class ConversationHandler {
             const response = await this.gptInterface.getResponse(
                 filterConv(this.conversation)
             );
-            response.content = response.content.replace(/`/g,"").replace(/\bpython\b/gi, "");
+            response.content = response.content
+                .replace(/`/g, "")
+                .replace(/\bpython\b/gi, "");
             this.conversation.push(response);
             console.log(`Generated code:\n ${response.content}`);
             return response.content;

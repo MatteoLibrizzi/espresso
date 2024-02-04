@@ -12,10 +12,11 @@ function isCodeDiff(code: string, conversation: any) {
     if (code === "" || code == null) {
         return false;
     }
-    if (conversation.length < 2) {
+    if (conversation.length < 1) {
         return false;
     }
-    if (code !== conversation[conversation.length - 2].content) {
+    console.log(conversation);
+    if (code !== conversation[conversation.length - 1].content) {
         console.log("Code is different");
         return true;
     }
@@ -44,6 +45,11 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
             conversation[i].content.startsWith("The returned code for ")
         ) {
             i++; // Skip this interaction and the next one
+        } else if (
+            conversation[i].role === "user" &&
+            conversation[i].content.startsWith("run code again")
+        ) {
+            continue;
         } else {
             cleanedConversation.push(conversation[i]);
         }
@@ -62,10 +68,21 @@ class UserFlowHandler {
     async nextVideo(prompt: string, codeBlock: string) {
         const fileName = `store/${createHash("sha256").update(prompt).digest("hex")}`;
         console.log(`The filename is: ${fileName}`);
+        this.getCompleteConversation().push({
+            role: "videoPath",
+            content: "a",
+        });
+        console.log(
+            `The prompt is: ${JSON.stringify(this.getCompleteConversation())}`
+        );
+        return;
         try {
             const content = await readFile(fileName);
             console.log("Returned cached data");
-            return { conversation: JSON.parse(content.toString()) };
+            this.conversation.conversation = JSON.parse(content.toString());
+            return {
+                conversation: cleanConversation(this.getCompleteConversation()),
+            };
         } catch (error) {}
 
         if (
@@ -96,10 +113,11 @@ class UserFlowHandler {
             content: videoPath,
         });
 
+        this.remember(fileName, this.getCompleteConversation());
+
         const compleConversation = cleanConversation(
             this.getCompleteConversation()
         );
-        this.remember(fileName, compleConversation);
         return { conversation: compleConversation };
     }
 
@@ -108,16 +126,18 @@ class UserFlowHandler {
     }
 
     async editCode(codeBlock: string) {
+        //CALEB cash also here
         if (
             !isCodeDiff(codeBlock, this.conversation.getConversationHistory())
         ) {
             return null;
         }
 
+        console.log("diff code true");
         const videoPath = await video_render(codeBlock);
         this.getCompleteConversation().push({
             role: "user",
-            content: codeBlock,
+            content: "run code again",
         });
         this.getCompleteConversation().push({
             role: "assistant",
