@@ -13,6 +13,9 @@
 
   const submitPrompt = async () => {
     console.log("submitting prompt", newPrompt);
+
+    if (newPrompt === "") return;
+
     const response = await fetch("/testVideoFlow", {
       method: "POST",
       headers: {
@@ -56,7 +59,7 @@
   <title>Espresso</title>
 </svelte:head>
 
-<div class="bg-gray-50 flex flex-col items-center min-h-screen" bind:this={div}>
+<div class="bg-gray-50 flex flex-col items-center h-screen" bind:this={div}>
   <div
     id="chat-container"
     class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12"
@@ -103,7 +106,7 @@
           fill-rule="evenodd"
           d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"
         />
-      </svg></PrimaryButton
-    >
+      </svg>
+    </PrimaryButton>
   </div>
 </div>
