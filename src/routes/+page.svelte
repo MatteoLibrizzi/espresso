@@ -102,8 +102,16 @@
     <title>Espresso</title>
 </svelte:head>
 
-<div class="bg-gray-50 flex flex-col items-center h-screen">
-    <div class={proMode ? "flex flex-row h-screen" : ""}>
+<div
+    class={proMode
+        ? "bg-gray-50 flex flex-row items-center h-screen gap-10"
+        : ""}
+>
+    <div
+        class={proMode
+            ? "bg-gray-50 flex flex-col items-center h-screen w-full max-w-3xl pl-10"
+            : "bg-gray-50 flex flex-col items-center h-screen "}
+    >
         <div class="flex flex-row gap-3 p-5 text-align w-full justify-end">
             <p class="text-sm">Pro Mode</p>
             <Toggle enabled={proMode} onChangeProps={onChangeProp} />
@@ -160,11 +168,10 @@
                 </svg>
             </PrimaryButton>
         </div>
-
-        {#if proMode}
-            <div class="w-1/2">
-                <MonacoEditor />
-            </div>
-        {/if}
     </div>
+    {#if proMode}
+        <div class="w-full">
+            <MonacoEditor />
+        </div>
+    {/if}
 </div>
