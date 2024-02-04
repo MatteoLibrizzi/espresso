@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MonacoEditor from "../lib/components/editor/MonacoEditor.svelte";
+  import MonacoEditor from "$lib/components/editor/MonacoEditor.svelte";
   import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
   import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
   import VideoAndCodeContainer from "$lib/components/VideoAndCodeContainer.svelte";
