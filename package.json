@@ -44,8 +44,11 @@
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "axios": "^1.6.7",
+    "monaco-editor-textmate": "^4.0.0",
+    "monaco-textmate": "^3.0.1",
     "set-value": "^4.1.0",
     "svelte-french-toast": "^1.2.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "vscode-textmate": "^9.0.0"
   }
 }

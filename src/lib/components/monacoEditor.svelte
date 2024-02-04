@@ -20,7 +20,7 @@
     async function mountEditor() {
         monaco = (await import("./monaco")).default;
         editor = monaco.editor.create(editorContainer);
-        const model = monaco.editor.createModel(content, "javascript");
+        const model = monaco.editor.createModel(content, "python");
         editor.setModel(model);
         monaco.editor.setTheme("vs-dark");
 
