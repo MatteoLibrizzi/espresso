@@ -11,6 +11,7 @@ class ConversationHandler {
     private systemPrompt = `Your are a manim expert, use only methods that you can find in manim documentation. 
     You receive a prompt and write code step by step that do all the animations requested.
     You always create a python class with the name Anima.
+    Remember that ShowCreation is not defined.
     You answer with only code and nothing else. Use single quotes for string.`;
 
     constructor(apiKey: string) {
