@@ -1,16 +1,18 @@
-import UserFlowHandler from "../../services/userFlowHandler";
+import { SESSION } from '../../services/storage'
 
-const conv = new UserFlowHandler();
+export async function POST(req) {
+	const body = await req.request.json()
+	const prompt = body.prompt
+	const codeBlock = body.code
 
-export async function GET(req) {
-    const prompt = req.url.searchParams.get("prompt");
-    const code = req.url.searchParams.get("code");
-    console.log(`${prompt}`);
-    console.log(await conv.nextVideo(prompt!, code!));
+	const { conversation } = await SESSION.nextVideo(
+		prompt!,
+		codeBlock ?? ''
+	)
 
-    return new Response(JSON.stringify(conv) as any, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+	return new Response(JSON.stringify({ conversation }) as string, {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
 }
