@@ -66,7 +66,9 @@ class UserFlowHandler {
     }
 
     async nextVideo(prompt: string, codeBlock: string) {
-        const fileName = `store/${createHash("sha256").update(prompt).digest("hex")}`;
+        const fileName = `store/${createHash("sha256")
+            .update(prompt + codeBlock)
+            .digest("hex")}`;
         console.log(`The filename is: ${fileName}`);
 
         try {
@@ -119,7 +121,17 @@ class UserFlowHandler {
     }
 
     async editCode(codeBlock: string) {
-        //CALEB cash also here
+        const fileName = `store/${createHash("sha256").update(codeBlock).digest("hex")}`;
+        console.log(`The filename is: ${fileName}`);
+
+        try {
+            const content = await readFile(fileName);
+            console.log("Returned cached data");
+            this.conversation.conversation = JSON.parse(content.toString());
+            return {
+                conversation: cleanConversation(this.getCompleteConversation()),
+            };
+        } catch (error) {}
         if (
             !isCodeDiff(codeBlock, this.conversation.getConversationHistory())
         ) {
@@ -140,6 +152,8 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
+
+        this.remember(fileName, this.getCompleteConversation());
         return {
             conversation: cleanConversation(this.getCompleteConversation()),
         };
