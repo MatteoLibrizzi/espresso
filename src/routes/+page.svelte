@@ -34,9 +34,8 @@
 
         conversation = [...data.conversation];
         newPrompt = "";
-
-        newCode = conversation[-1].content;
-
+        newCode = conversation[conversation.length - 1].content;
+        console.log("newCode", newCode);
         changeEditorContent();
     };
 
@@ -47,7 +46,7 @@
     };
 
     const editCode = async () => {
-        console.log("editingCode prompt", newPrompt);
+        console.log("editingCode prompt", newCode);
         const response = await fetch("/editCode", {
             method: "POST",
             headers: {
@@ -66,6 +65,10 @@
         conversation = [...data.conversation];
         newPrompt = "";
     };
+
+    editorContent.subscribe(async (value) => {
+        newCode = value;
+    });
 </script>
 
 <svelte:head>
@@ -122,6 +125,7 @@
                     />
                 </svg>
             </PrimaryButton>
+            <PrimaryButton on:click={editCode}></PrimaryButton>
         </div>
     </div>
     <div class="w-1/2">

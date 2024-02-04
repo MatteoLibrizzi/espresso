@@ -8,20 +8,30 @@
     let editorContainer: HTMLElement;
 
     let content: string;
-    editorContent.subscribe((value) => {
+    editorContent.subscribe(async (value) => {
         content = value;
         if (editor) {
             const model = editor.getModel();
+            if (!model) await mountEditor();
             model.setValue(content);
         }
     });
 
-    onMount(async () => {
+    async function mountEditor() {
         monaco = (await import("./monaco")).default;
         editor = monaco.editor.create(editorContainer);
         const model = monaco.editor.createModel(content, "javascript");
         editor.setModel(model);
         monaco.editor.setTheme("vs-dark");
+
+        model.onDidChangeContent(() => {
+            // Update the store's value with the new content
+            editorContent.set(model.getValue());
+        });
+    }
+
+    onMount(async () => {
+        await mountEditor();
     });
 
     onDestroy(() => {
