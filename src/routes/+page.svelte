@@ -9,6 +9,7 @@
     import { toast } from "svelte-french-toast";
     import { proModeStorage } from "$lib/shared/stores/proMode";
     import Toggle from "$lib/components/Toggle.svelte";
+    import { onMount } from "svelte";
 
     $: conversation = [] as Interaction[];
     $: proMode = false;
@@ -40,7 +41,15 @@
             ul.scrollTop = ul.scrollHeight;
         }
     });
-
+    onMount(async () => {
+        console.log("Page reloaded, resetting session");
+        const response = await fetch("/refreshSession", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    });
     const submitPrompt = async () => {
         console.log("submitting prompt", newPrompt);
 
@@ -88,6 +97,7 @@
         const data = await response.json();
         if (data.noChange) {
             toast.error("No change in code");
+            return;
         }
         conversation = [...data.conversation];
         newPrompt = "";
@@ -135,6 +145,7 @@
                         <VideoAndCodeContainer
                             videoSource={interaction.videoPath}
                             code={interaction.content}
+                            {proMode}
                         />
                     {:else}
                         {interaction.content}
@@ -172,6 +183,18 @@
     {#if proMode}
         <div class="w-full">
             <MonacoEditor />
+            <div class="runBtn">
+                <PrimaryButton on:click={editCode}>Run Code</PrimaryButton>
+            </div>
         </div>
     {/if}
 </div>
+
+<style>
+    .runBtn {
+        position: absolute;
+        top: 90vh;
+        left: 85vw;
+        z-index: 9999;
+    }
+</style>
