@@ -35,8 +35,8 @@
     {/if}
 </main>
 <Modal bind:showModal>
-    <h2 slot="header">Your code</h2>
+    <h2 class='font-bold text-lg pb-3' slot="header">Your code</h2>
     <div class="h-100 w-70%">
-        <pre>{content}</pre>
+        <pre class='pt-3'>{content}</pre>
     </div>
 </Modal>
