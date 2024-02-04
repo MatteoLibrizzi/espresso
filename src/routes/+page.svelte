@@ -88,33 +88,6 @@
 </svelte:head>
 
 <div class="bg-gray-50 flex flex-col items-center h-screen">
-  <div class="w-fit">
-    <Toggle enabled={proMode} onChangeProps={onChangeProp} />
-    <p>Pro Mode</p>
-  </div>
-  <ul
-    class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
-    bind:this={ul}
-  >
-    {#each conversation as interaction, index}
-      <InteractionTile
-        role={interaction.role}
-        sender={interaction.role === "assistant" ? "Espresso" : "You"}
-        avatar={interaction.role === "assistant"
-          ? "https://emojiguide.com/wp-content/uploads/platform/apple/42953.png"
-          : "https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"}
-      >
-        {#if interaction.role === "assistant"}
-          <VideoAndCodeContainer
-            videoSource={interaction.videoPath}
-            code={interaction.content}
-          />
-        {:else}
-          {interaction.content}
-        {/if}
-      </InteractionTile>
-    {/each}
-  </ul>
   <div class="flex flex-row gap-3 p-5 text-align w-full justify-end">
     <p class="text-sm">Pro Mode</p>
     <Toggle enabled={proMode} onChangeProps={onChangeProp} />
