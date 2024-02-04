@@ -83,8 +83,10 @@
     {#each conversation as interaction, index}
       <InteractionTile
         role={interaction.role}
-        sender="You"
-        avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
+        sender={interaction.role === "assistant" ? "Espresso" : "You"}
+        avatar={interaction.role === "assistant"
+          ? "https://emojiguide.com/wp-content/uploads/platform/apple/42953.png"
+          : "https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"}
       >
         {#if interaction.role === "assistant"}
           <VideoAndCodeContainer
