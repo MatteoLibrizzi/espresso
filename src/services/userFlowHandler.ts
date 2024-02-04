@@ -1,4 +1,5 @@
 import ConversationHandler from "./conversationHandler";
+import type { Interaction } from "./gptInterface";
 import { video_render } from "./utilities";
 
 function getFixPrompt(prompt: string, error: string) {
@@ -17,6 +18,27 @@ function isCodeDiff(code: string, conversation: any) {
         return true;
     }
     return false;
+}
+
+function cleanConversation(conversation: Interaction[]): Interaction[] {
+    let cleanedConversation: Interaction[] = [];
+    for (let i = 0; i < conversation.length; i++) {
+        if (
+            conversation[i].role === "assistant" &&
+            i < conversation.length - 1 &&
+            conversation[i + 1].role === "videoPath"
+        ) {
+            cleanedConversation.push({
+                role: "assitant",
+                content: `${conversation[i].content}`,
+                videoPath: conversation[i + 1].content,
+            });
+            i++; // Skip next interaction
+        } else {
+            cleanedConversation.push(conversation[i]);
+        }
+    }
+    return cleanedConversation;
 }
 
 class UserFlowHandler {
@@ -55,7 +77,9 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        return { conversation: this.getCompleteConversation() };
+        return {
+            conversation: cleanConversation(this.getCompleteConversation()),
+        };
     }
 
     async editCode(codeBlock: string) {
@@ -78,7 +102,9 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        return { conversation: this.getCompleteConversation() };
+        return {
+            conversation: cleanConversation(this.getCompleteConversation()),
+        };
     }
 
     getCompleteConversation() {

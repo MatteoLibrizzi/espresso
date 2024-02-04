@@ -3,6 +3,7 @@ import axios from "axios";
 export interface Interaction {
     role: string;
     content: string;
+    videoPath?: string;
 }
 
 interface GPTResponse {
