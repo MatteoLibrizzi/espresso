@@ -88,9 +88,9 @@
 </svelte:head>
 
 <div class="bg-gray-50 flex flex-col items-center h-screen">
-	<div class="w-fit">
+	<div class="flex flex-row gap-3 p-5 text-align w-full justify-end">
+		<p class="text-sm">Pro Mode</p>
 		<Toggle enabled={proMode} onChangeProps={onChangeProp} />
-		<p>Pro Mode</p>
 	</div>
 	<ul
 		class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
