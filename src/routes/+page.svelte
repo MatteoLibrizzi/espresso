@@ -1,4 +1,6 @@
 <script lang="ts">
+    import MonacoEditor from "../lib/components/monacoEditor.svelte";
+
     import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
     import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
     import VideoAndCodeContainer from "$lib/components/VideoAndCodeContainer.svelte";
@@ -59,10 +61,19 @@
 
         conversation = [...data.conversation];
         newPrompt = "";
+        newCode = conversation[conversation.length - 1].content;
+        console.log("newCode", newCode);
+        changeEditorContent();
+    };
+
+    import { editorContent } from "../lib/shared/stores/editorContent";
+
+    const changeEditorContent = () => {
+        editorContent.set(newCode);
     };
 
     const editCode = async () => {
-        console.log("editingCode prompt", newPrompt);
+        console.log("editingCode prompt", newCode);
         const response = await fetch("/editCode", {
             method: "POST",
             headers: {
@@ -81,6 +92,10 @@
         conversation = [...data.conversation];
         newPrompt = "";
     };
+
+    editorContent.subscribe(async (value) => {
+        newCode = value;
+    });
 </script>
 
 <svelte:head>
@@ -140,5 +155,9 @@
                 />
             </svg>
         </PrimaryButton>
+    </div>
+
+    <div class="w-1/2">
+        <MonacoEditor />
     </div>
 </div>
