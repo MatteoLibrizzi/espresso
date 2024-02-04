@@ -1,7 +1,6 @@
 <script lang="ts">
     import VideoPlayer from "./VideoPlayer.svelte";
     import Modal from "./layout/Modal.svelte";
-    import MonacoEditorRead from "./editor/monacoEditorRead.svelte";
 
     export let videoSource = "";
     export let code = "";
@@ -37,7 +36,7 @@
 </main>
 <Modal bind:showModal>
     <h2 slot="header">Your code</h2>
-    <div class="h-100 w-100">
-        <MonacoEditorRead {content} />
+    <div class="h-100 w-70%">
+        <pre>{content}</pre>
     </div>
 </Modal>

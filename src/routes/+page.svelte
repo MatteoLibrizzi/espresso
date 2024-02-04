@@ -65,7 +65,9 @@
 
     if (newPrompt === "") return;
 
-    const newPromptCopy = (' ' + newPrompt).slice(1);
+    conversation = [...conversation, { role: "user", content: newPrompt }];
+
+    const newPromptCopy = (" " + newPrompt).slice(1);
     newPrompt = "";
 
     isThinking = true;
@@ -151,7 +153,7 @@
     </div>
 
     <ul
-      class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
+      class="flex flex-col pb-24 -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
       bind:this={ul}
     >
       {#each conversation as interaction, index}
