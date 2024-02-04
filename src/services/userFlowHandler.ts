@@ -34,7 +34,7 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
             conversation[i + 1].role === "videoPath"
         ) {
             cleanedConversation.push({
-                role: "assitant",
+                role: "assistant",
                 content: `${conversation[i].content}`,
                 videoPath: conversation[i + 1].content,
             });
