@@ -6,6 +6,9 @@ export async function POST(req) {
   const codeBlock = body.code;
   try {
     const { conversation } = await SESSION.nextVideo(prompt!, codeBlock ?? "");
+    if (conversation[conversation.length - 1].role === "videoPath") {
+      throw new Error("Video not generated");
+    }
     return new Response(JSON.stringify({ conversation }) as string, {
       headers: {
         "Content-Type": "application/json",
