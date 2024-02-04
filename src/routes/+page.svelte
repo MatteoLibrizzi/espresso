@@ -1,6 +1,6 @@
 <script lang="ts">
   import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
-  import Interaction from "$lib/components/layout/Interaction.svelte";
+  import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
 
   $: conversationHandler = [
     { content: "Hello!", role: "user" },
@@ -36,13 +36,13 @@
   >
     <ul role="list" class="-mb-8">
       {#each conversationHandler as interaction, index}
-        <Interaction
+        <InteractionTile
           role={interaction.role}
           sender="You"
           avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
         >
           {interaction.content}
-        </Interaction>
+        </InteractionTile>
       {/each}
     </ul>
   </div>
