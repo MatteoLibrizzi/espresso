@@ -5,7 +5,7 @@
 <button
   {...$$restProps}
   on:click
-  class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+  class="text-2xl rounded-md bg-gray-50 px-3 py-2 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ring-2 ring-indigo-500"
 >
   <slot />
 </button>
