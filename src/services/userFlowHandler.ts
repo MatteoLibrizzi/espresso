@@ -9,7 +9,7 @@ function getFixPrompt(prompt: string, error: string) {
 }
 
 function isCodeDiff(code: string, conversation: any) {
-    if (code === "" || code == null) {
+    if (code === "" || code == null|| code=="# Start writing a prompt to generate code.") {
         return false;
     }
     if (conversation.length < 1) {
@@ -57,6 +57,7 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
                 content = contentL[1];
             }
             content = contentL[0];
+            console.log(contentL,'aaaaa')
             cleanedConversation.push({
                 role: conversation[i].role,
                 content: content,
