@@ -1,6 +1,6 @@
 <script lang="ts">
   import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
-  import { afterUpdate, beforeUpdate, onMount } from "svelte";
+  import Interaction from "$lib/components/layout/Interaction.svelte";
 
   $: conversationHandler = [
     { content: "Hello!", role: "user" },
@@ -34,10 +34,17 @@
     id="chat-container"
     class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl"
   >
-    {#each conversationHandler as interaction, index}
-      <div>{interaction.content}</div>
-      <br />
-    {/each}
+    <ul role="list" class="-mb-8">
+      {#each conversationHandler as interaction, index}
+        <Interaction
+          role={interaction.role}
+          sender="You"
+          avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
+        >
+          {interaction.content}
+        </Interaction>
+      {/each}
+    </ul>
   </div>
 
   <div class="flex flex-row gap-4 p-5 mt-auto max-w-3xl w-full">
