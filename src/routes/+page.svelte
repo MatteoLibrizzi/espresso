@@ -158,7 +158,6 @@
             class="flex flex-row gap-4 p-2 max-w-3xl w-full items-center justify-center space-x-2 border rounded-md mb-6 sticky bottom-0 bg-gray-50 border-t"
         >
             <input
-                on:keydown={submitPrompt}
                 class="flex-grow p-2 rounded-md bg-gray-50 ring-0 border-0 focus:outline-none"
                 bind:value={newPrompt}
                 placeholder="Make an animation that shows how an integral is computed for a cubic function..."

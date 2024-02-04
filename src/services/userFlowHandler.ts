@@ -68,6 +68,7 @@ class UserFlowHandler {
     async nextVideo(prompt: string, codeBlock: string) {
         const fileName = `store/${createHash("sha256").update(prompt).digest("hex")}`;
         console.log(`The filename is: ${fileName}`);
+
         try {
             const content = await readFile(fileName);
             console.log("Returned cached data");
@@ -94,7 +95,7 @@ class UserFlowHandler {
                 if (retries > 3) {
                     throw Error("Failed to generate video");
                 }
-                console.log("Sto generando il video di nuovo");
+                console.log("Sto generando il video di nuovo", retries);
                 code = await this.conversation.nextQuery(
                     getFixPrompt(prompt, (e as Error).message)
                 );
