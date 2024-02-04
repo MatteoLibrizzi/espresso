@@ -70,6 +70,8 @@
         }
         const data = await response.json();
 
+        isThinking = false;
+
         conversation = [...data.conversation];
         newCode = conversation[conversation.length - 1].content;
         console.log("newCode", newCode);
@@ -86,6 +88,7 @@
         console.log("editingCode prompt", newCode);
 
         newPrompt = "";
+        isThinking = true;
         const response = await fetch("/editCode", {
             method: "POST",
             headers: {
@@ -97,6 +100,7 @@
             toast.error("An error occurred while comiling the code.");
         }
 
+        isThinking = false;
         const data = await response.json();
         if (data.noChange) {
             toast.error("No change in code");
