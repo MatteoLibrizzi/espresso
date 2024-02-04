@@ -75,6 +75,7 @@ class UserFlowHandler {
     }
 
     async nextVideo(prompt: string, codeBlock: string) {
+        console.log("calling next");
         const fileName = `store/${createHash("sha256")
             .update(prompt + codeBlock)
             .digest("hex")}`;
@@ -94,6 +95,7 @@ class UserFlowHandler {
         ) {
             codeBlock = "";
         }
+        console.log("p", prompt, "c", codeBlock);
         let code = await this.conversation.nextQuery(prompt, codeBlock);
         console.log(`${code}`);
         let videoPath: string | undefined = undefined;
