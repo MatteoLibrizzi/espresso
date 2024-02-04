@@ -1,1 +1,0 @@
-[{"role":"user","content":"Can you draw a sqaure function"},{"role":"assistant","content":"\nfrom manim import *\n\nclass Anima(Scene):\n    def construct(self):\n        square_function = Tex('$f(x) = x^2$').scale(2)\n        self.play(Write(square_function))\n        self.wait(1)\n","videoPath":"src/animas/5492205e-1776-420d-bd5a-17c15165f331.mp4"}]
