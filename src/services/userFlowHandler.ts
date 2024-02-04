@@ -89,7 +89,8 @@ class UserFlowHandler {
             console.log("Returned cached data");
             this.conversation.conversation = JSON.parse(content.toString());
             
-            console.log( cleanConversation(this.getCompleteConversation()))
+            console.log( cleanConversation(this.getCompleteConversation()));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
         return {
                 conversation: cleanConversation(this.getCompleteConversation()),
             };
@@ -145,6 +146,7 @@ class UserFlowHandler {
             const content = await readFile(fileName);
             console.log("Returned cached data");
             this.conversation.conversation = JSON.parse(content.toString());
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             return {
                 conversation: cleanConversation(this.getCompleteConversation()),
             };
