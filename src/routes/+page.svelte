@@ -151,7 +151,7 @@
     </div>
 
     <ul
-      class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
+      class="flex flex-col pb-24 -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
       bind:this={ul}
     >
       {#each conversation as interaction, index}
