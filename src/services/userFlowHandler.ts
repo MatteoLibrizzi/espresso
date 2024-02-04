@@ -51,7 +51,16 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
         ) {
             continue;
         } else {
-            cleanedConversation.push(conversation[i]);
+            const contentL = conversation[i].content.split("\n#\n");
+            let content;
+            if (contentL.length > 1) {
+                content = contentL[1];
+            }
+            content = contentL[0];
+            cleanedConversation.push({
+                role: conversation[i].role,
+                content: content,
+            });
         }
     }
     return cleanedConversation;

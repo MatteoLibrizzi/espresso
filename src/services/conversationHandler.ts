@@ -21,7 +21,7 @@ class ConversationHandler {
 
     async nextQuery(prompt: string, codeBlock?: string): Promise<string> {
         if (codeBlock) {
-            prompt = `${codeBlock}\n${prompt}`;
+            prompt = `${codeBlock}\n#\n${prompt}`;
         }
         this.conversation.push({ role: "user", content: prompt });
         try {
