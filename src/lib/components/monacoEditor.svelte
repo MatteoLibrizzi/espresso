@@ -41,14 +41,5 @@
 </script>
 
 <div>
-    <div class="container" bind:this={editorContainer} />
+    <div class="h-screen w-full" bind:this={editorContainer} />
 </div>
-
-<style>
-    .container {
-        width: 95%;
-        height: 90vh;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-    }
-</style>
