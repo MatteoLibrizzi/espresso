@@ -1,7 +1,7 @@
 <script lang="ts">
     import VideoPlayer from "./VideoPlayer.svelte";
     import Modal from "./layout/Modal.svelte";
-    import MonacoEditorRead from "./monacoEditorRead.svelte";
+    import MonacoEditorRead from "./editor/monacoEditorRead.svelte";
 
     export let videoSource = "";
     export let code = "";
