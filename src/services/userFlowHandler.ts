@@ -26,6 +26,7 @@ function isCodeDiff(code: string, conversation: any) {
 function cleanConversation(conversation: Interaction[]): Interaction[] {
     let cleanedConversation: Interaction[] = [];
     for (let i = 0; i < conversation.length; i++) {
+        console.log(conversation[i].role,i)
         if (conversation[i].role === "system") {
             continue;
         }
@@ -36,7 +37,7 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
         ) {
             cleanedConversation.push({
                 role: "assistant",
-                content: `${conversation[i].content}`,
+                content:conversation[i].content,
                 videoPath: conversation[i + 1].content,
             });
             i++; // Skip next interaction
@@ -51,12 +52,13 @@ function cleanConversation(conversation: Interaction[]): Interaction[] {
         ) {
             continue;
         } else {
-            const contentL = conversation[i].content.split("\n#\n");
+            const contentL = conversation[i].content.split("@@@@@");
             let content;
             if (contentL.length > 1) {
                 content = contentL[1];
+            }else{
+                content = contentL[0];
             }
-            content = contentL[0];
             console.log(contentL,'aaaaa')
             cleanedConversation.push({
                 role: conversation[i].role,
@@ -86,7 +88,9 @@ class UserFlowHandler {
             const content = await readFile(fileName);
             console.log("Returned cached data");
             this.conversation.conversation = JSON.parse(content.toString());
-            return {
+            
+            console.log( cleanConversation(this.getCompleteConversation()))
+        return {
                 conversation: cleanConversation(this.getCompleteConversation()),
             };
         } catch (error) {}
@@ -125,6 +129,7 @@ class UserFlowHandler {
         const compleConversation = cleanConversation(
             this.getCompleteConversation()
         );
+        console.log('HAHAHAHHAH',compleConversation)
         return { conversation: compleConversation };
     }
 
