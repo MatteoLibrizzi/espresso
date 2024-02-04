@@ -2,6 +2,7 @@
   import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
   import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
   import VideoAndCodeContainer from "$lib/components/VideoAndCodeContainer.svelte";
+  import { afterUpdate, beforeUpdate } from "svelte";
   import type { Interaction } from "../services/gptInterface";
   import { toast } from "svelte-french-toast";
 
@@ -9,7 +10,22 @@
 
   let newPrompt = "";
   let newCode = "";
-  let div: HTMLDivElement;
+  let ul: HTMLUListElement;
+  let autoscroll = false;
+
+  beforeUpdate(() => {
+    if (ul) {
+      const isScrolledToBottom =
+        ul.scrollHeight - ul.clientHeight <= ul.scrollTop + 1;
+      autoscroll = isScrolledToBottom;
+    }
+  });
+
+  afterUpdate(() => {
+    if (autoscroll) {
+      ul.scrollTop = ul.scrollHeight;
+    }
+  });
 
   const submitPrompt = async () => {
     console.log("submitting prompt", newPrompt);
@@ -59,30 +75,28 @@
   <title>Espresso</title>
 </svelte:head>
 
-<div class="bg-gray-50 flex flex-col items-center h-screen" bind:this={div}>
-  <div
-    id="chat-container"
-    class="max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12"
+<div class="bg-gray-50 flex flex-col items-center h-screen">
+  <ul
+    class="flex flex-col -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
+    bind:this={ul}
   >
-    <ul role="list" class="-mb-8">
-      {#each conversation as interaction, index}
-        <InteractionTile
-          role={interaction.role}
-          sender="You"
-          avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
-        >
-          {#if interaction.role === "assistant"}
-            <VideoAndCodeContainer
-              videoSource={interaction.videoPath}
-              code={interaction.content}
-            />
-          {:else}
-            {interaction.content}
-          {/if}
-        </InteractionTile>
-      {/each}
-    </ul>
-  </div>
+    {#each conversation as interaction, index}
+      <InteractionTile
+        role={interaction.role}
+        sender="You"
+        avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
+      >
+        {#if interaction.role === "assistant"}
+          <VideoAndCodeContainer
+            videoSource={interaction.videoPath}
+            code={interaction.content}
+          />
+        {:else}
+          {interaction.content}
+        {/if}
+      </InteractionTile>
+    {/each}
+  </ul>
 
   <div
     class="flex flex-row gap-4 p-2 max-w-3xl w-full items-center justify-center space-x-2 border rounded-md mb-6 sticky bottom-0 bg-gray-50 border-t"
