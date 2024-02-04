@@ -1,6 +1,7 @@
 <script lang="ts">
     import PrimaryButton from "$lib/components/inputs/PrimaryButton.svelte";
     import InteractionTile from "$lib/components/layout/InteractionTile.svelte";
+	import VideoAndCodeContainer from "$lib/components/VideoAndCodeContainer.svelte"
     import VideoPlayer from "$lib/components/VideoPlayer.svelte";
     import type { Interaction } from "../services/gptInterface";
     import { Toaster, toast } from "svelte-french-toast";
@@ -27,6 +28,7 @@
 
         conversation = [...data.conversation];
         newPrompt = "";
+        console.log("conversation", conversation);
     };
 
     const editCode = async () => {
@@ -70,7 +72,13 @@
                     sender="You"
                     avatar="https://media.licdn.com/dms/image/C4E03AQH7IG289IiyLA/profile-displayphoto-shrink_400_400/0/1658559390930?e=1712793600&v=beta&t=99ydzLr1bZrNhZfdxEveDGTftvCm0Aw51KQ_u54Dnpg"
                 >
-                    {interaction.content}
+                    {#if interaction.role === "assistant"}
+                        <VideoAndCodeContainer
+                            videoSource={interaction.videoPath}
+                            code={interaction.content} />
+                    {:else}
+                        {interaction.content}
+                    {/if}
                 </InteractionTile>
             {/each}
         </ul>

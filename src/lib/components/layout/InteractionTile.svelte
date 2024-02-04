@@ -3,6 +3,7 @@
   export let sender = "";
   export let role = "";
   export let code = "";
+  export let videoPath = ""
 </script>
 
 {#if role === "assistant"}
