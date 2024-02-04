@@ -141,6 +141,12 @@
       </div>
     </div>
 
+    {#if conversation.length === 0}
+      <div class="flex flex-col text-gray-500 mt-96">
+        Start by putting math animations in your own words :)
+      </div>
+    {/if}
+
     <ul
       class="flex flex-col pb-32 -mb-8 max-h-400 overflow-y-auto w-full mx-auto max-w-3xl mt-auto no-scrollbar pt-12 scroll-smooth"
       bind:this={ul}
