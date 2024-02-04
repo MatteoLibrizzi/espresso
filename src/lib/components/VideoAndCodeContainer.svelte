@@ -1,10 +1,12 @@
 <script lang="ts">
     import VideoPlayer from "./VideoPlayer.svelte";
     import Modal from "./layout/Modal.svelte";
+    import MonacoEditorRead from "./monacoEditorRead.svelte";
 
     export let videoSource = "";
     export let code = "";
     export let proMode = false;
+    const content = code;
 
     let showModal = false;
 </script>
@@ -34,8 +36,8 @@
     {/if}
 </main>
 <Modal bind:showModal>
-    <h2 slot="header">
-        modal
-        <small><em>adjective</em> mod·al \ˈmō-dəl\</small>
-    </h2>
+    <h2 slot="header">Your code</h2>
+    <div class="h-100 w-100">
+        <MonacoEditorRead {content} />
+    </div>
 </Modal>
