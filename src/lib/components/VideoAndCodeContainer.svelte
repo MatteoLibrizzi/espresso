@@ -1,21 +1,21 @@
 <script lang="ts">
   import VideoPlayer from "./VideoPlayer.svelte";
+  import Modal from "./layout/Modal.svelte";
 
   export let videoSource = "";
   export let code = "";
 
-  let showCode = false;
-
-  const submitPrompt = () => {
-    showCode = !showCode;
-  };
+  let showModal = false;
 </script>
 
 <main class="w-full max-w-xl flex flex-row items-start">
   <VideoPlayer {videoSource} />
 
   <button
-    on:click={submitPrompt}
+    on:click={() => {
+      console.log(showModal);
+      showModal = true;
+    }}
     class=" text-gray-500 font-bold py-2 px-4 rounded"
     ><svg
       xmlns="http://www.w3.org/2000/svg"
@@ -31,3 +31,10 @@
     </svg></button
   >
 </main>
+
+<Modal bind:showModal>
+  <h2 slot="header">
+    modal
+    <small><em>adjective</em> mod·al \ˈmō-dəl\</small>
+  </h2>
+</Modal>
