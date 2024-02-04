@@ -12,36 +12,36 @@ import { Registry } from "monaco-textmate"; // import the Registry class from mo
 import { wireTmGrammars } from "monaco-editor-textmate"; // import the wireTmGrammars function
 import * as pythonGrammar from "./MagicPython.tmLanguage.json";
 // import * as darkTheme from "./vs-dark-plus-theme.json";
+
 self.MonacoEnvironment = {
-    getWorker: function (_: string, label: string) {
-        switch (label) {
-            case "json":
-                return new jsonWorker();
-            // case "python":
-            //     return new pythonWorker();
-            case "typescript":
-            case "javascript":
-                return new tsWorker();
-            default:
-                return new editorWorker();
-        }
-    },
+  getWorker: function (_: string, label: string) {
+    switch (label) {
+      case "json":
+        return new jsonWorker();
+      // case "python":
+      //     return new pythonWorker();
+      case "typescript":
+      case "javascript":
+        return new tsWorker();
+      default:
+        return new editorWorker();
+    }
+  },
 };
+
 // create a new registry
 const registry = new Registry({
-    getGrammarDefinition: async (scopeName: any) => {
-        switch (scopeName) {
-            case "source.python":
-                return {
-                    format: "json",
-                    content: await (
-                        await fetch("./MagicPython.tmLanguage.json")
-                    ).text(),
-                };
-            default:
-                throw Error("Language not supported");
-        }
-    },
+  getGrammarDefinition: async (scopeName: any) => {
+    switch (scopeName) {
+      case "source.python":
+        return {
+          format: "json",
+          content: await (await fetch("./MagicPython.tmLanguage.json")).text(),
+        };
+      default:
+        throw Error("Language not supported");
+    }
+  },
 });
 
 // // fetch the dark theme
