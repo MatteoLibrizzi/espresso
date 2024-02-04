@@ -20,10 +20,11 @@ class ConversationHandler {
     }
 
     async nextQuery(prompt: string, codeBlock?: string): Promise<string> {
-        if (codeBlock) {
+        if (codeBlock && !codeBlock.includes("prompt to generate")) {
             prompt = `${codeBlock}\n#\n${prompt}`;
         }
         this.conversation.push({ role: "user", content: prompt });
+        console.log(this.conversation ,"AAHAHHAHAHAHAHHAHA")
         try {
             const response = await this.gptInterface.getResponse(
                 filterConv(this.conversation)
