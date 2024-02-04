@@ -1,6 +1,8 @@
 import ConversationHandler from "./conversationHandler";
 import type { Interaction } from "./gptInterface";
 import { video_render } from "./utilities";
+import { writeFile, readFile} from "fs/promises";
+import {createHash} from "crypto";
 
 function getFixPrompt(prompt: string, error: string) {
     return `The returned code for "${prompt} returned compile error ${error}, fix it`;
@@ -53,6 +55,15 @@ class UserFlowHandler {
     }
 
     async nextVideo(prompt: string, codeBlock: string) {
+
+        const fileName = `store/${createHash('sha256').update(prompt).digest('hex')}`;
+        console.log(`The filename is: ${fileName}`);
+        try{
+            const content = await readFile(fileName);
+            console.log("Returned cached data");
+            return {conversation: JSON.parse(content.toString())};
+        } catch (error) {}
+
         if (
             !isCodeDiff(codeBlock, this.conversation.getConversationHistory())
         ) {
@@ -80,9 +91,14 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        return {
-            conversation: cleanConversation(this.getCompleteConversation()),
-        };
+        
+        const compleConversation = cleanConversation(this.getCompleteConversation());
+        this.remember(fileName, compleConversation);
+        return { conversation: compleConversation};
+    }
+
+    async remember(fileName: string, compleConversation: Interaction[]){
+        await writeFile(fileName, JSON.stringify(compleConversation));
     }
 
     async editCode(codeBlock: string) {
