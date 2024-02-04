@@ -6,6 +6,9 @@ function getFixPrompt(prompt: string, error: string) {
 }
 
 function isCodeDiff(code: string, conversation: any) {
+    if (code === "" || code == null) {
+        return false;
+    }
     if (conversation.length < 2) {
         return false;
     }
@@ -40,7 +43,7 @@ class UserFlowHandler {
             } catch (e: any) {
                 retries += 1;
                 if (retries > 3) {
-                    throw e;
+                    throw Error("Failed to generate video");
                 }
                 console.log("Sto generando il video di nuovo");
                 code = await this.conversation.nextQuery(
@@ -52,7 +55,30 @@ class UserFlowHandler {
             role: "videoPath",
             content: videoPath,
         });
-        return { videoPath, conversation: this.getCompleteConversation() };
+        return { conversation: this.getCompleteConversation() };
+    }
+
+    async editCode(codeBlock: string) {
+        if (
+            !isCodeDiff(codeBlock, this.conversation.getConversationHistory())
+        ) {
+            return null;
+        }
+
+        const videoPath = await video_render(codeBlock);
+        this.getCompleteConversation().push({
+            role: "user",
+            content: codeBlock,
+        });
+        this.getCompleteConversation().push({
+            role: "assistant",
+            content: codeBlock,
+        });
+        this.getCompleteConversation().push({
+            role: "videoPath",
+            content: videoPath,
+        });
+        return { conversation: this.getCompleteConversation() };
     }
 
     getCompleteConversation() {
