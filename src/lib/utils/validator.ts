@@ -56,7 +56,7 @@ type IntoStringLiteralUnion<T> = {
 
 export function StringLiteralUnion<T extends string[]>(
   values: readonly [...T],
-  options?: SchemaOptions
+  options?: SchemaOptions,
 ): TUnion<IntoStringLiteralUnion<T>> {
   const literals = values.map((value) => Type.Literal(value));
   return Type.Union(literals, options) as TUnion<IntoStringLiteralUnion<T>>;

@@ -1,4 +1,3 @@
-import { writable } from 'svelte/store'
+import { writable } from "svelte/store";
 
-export const proModeStorage = writable<boolean>(false)
-
+export const proModeStorage = writable<boolean>(false);

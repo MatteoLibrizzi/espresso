@@ -15,7 +15,6 @@
     {#if !proMode}
         <button
             on:click={() => {
-                console.log(showModal);
                 showModal = true;
             }}
             class=" text-gray-500 font-bold py-2 px-4 rounded"

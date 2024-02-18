@@ -1,6 +1,6 @@
 import { SESSION } from "../../services/storage";
 
-export async function POST(req) {
+export async function POST(req: any) {
   const body = await req.request.json();
   const prompt = body.prompt;
   const codeBlock = body.code;

@@ -9,7 +9,6 @@
     export let content: string;
 
     async function mountEditor() {
-        console.log("mounting editor");
         monaco = (await import("./monaco")).default;
         editor = monaco.editor.create(editorContainer, { readOnly: true });
         const model = monaco.editor.createModel(content, "python");

@@ -1,7 +1,7 @@
-import { video_render } from "../../services/utilities";
+import { video_render } from '../../services/utilities'
 
 export async function GET() {
-    const conv = await video_render(`
+	const conv = await video_render(`
 from manim import *
 
 class Anima(Scene):
@@ -16,10 +16,12 @@ class Anima(Scene):
         # Add the circles and ellipse to the scene
         self.play(Create(circle1), Create(circle2))
         self.play(Create(ellipse))
-        self.wait()`);
-    return new Response(JSON.stringify(conv) as any, {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+        self.wait()`)
+
+	console.log('Conv', conv)
+	return new Response(JSON.stringify(conv) as any, {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	})
 }
