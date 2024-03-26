@@ -18,7 +18,6 @@ class Anima(Scene):
         self.play(Create(ellipse))
         self.wait()`)
 
-	console.log('Conv', conv)
 	return new Response(JSON.stringify(conv) as any, {
 		headers: {
 			'Content-Type': 'application/json',
